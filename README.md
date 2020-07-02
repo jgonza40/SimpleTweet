@@ -41,7 +41,7 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 * [ ] List anything else that you can get done to improve the app functionality!
-* Added a Twitter Icon to the App!
+* [x] Added a Twitter Icon to the App!
 
 ## Video Walkthrough
 
