@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -30,6 +32,9 @@ public class ComposeActivity extends AppCompatActivity {
     public static final int MAX_TWEET_LENGTH = 280;
     public static final String TAG = "ComposeActivity";
     TwitterClient client;
+    ImageView ivProfile;
+    TextView tvName;
+    TextView tvUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,16 @@ public class ComposeActivity extends AppCompatActivity {
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
         tvCounter = findViewById(R.id.tvCounter);
+        ivProfile = findViewById(R.id.ivProfile);
+        tvName = findViewById(R.id.tvName);
+        tvUserName = findViewById((R.id.tvUserName));
         client = TwitterApp.getRestClient(this);
+
+        //FIGURE IT OUT HEREEEEEEEEE
+//        Glide.with(context)
+//                .load(tweet.user.profileImageUrl)
+//                .circleCrop()
+//                .into(ivProfileImage);
 
         etCompose.addTextChangedListener(new TextWatcher() {
             @Override
