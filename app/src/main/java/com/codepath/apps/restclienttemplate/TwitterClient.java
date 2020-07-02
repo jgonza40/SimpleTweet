@@ -61,7 +61,7 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("count", 25);
         // Passing in max id of ast tweet because returns results (tweets) with an id less
         // than/older than it which is what we want for endless scrolling (keep loading old tweets)
-        params.put("max_id", maxId);
+        params.put("max_id", maxId - 1);
         client.get(apiUrl, params, handler);
     }
 
