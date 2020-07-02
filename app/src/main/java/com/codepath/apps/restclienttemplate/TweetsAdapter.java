@@ -2,7 +2,6 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.text.ParseException;
@@ -27,13 +24,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     Context context;
     List<Tweet> tweets;
     public static final int RADIUS = 10;
-    //Pass in the context and list of tweets
-    public TweetsAdapter(Context context, List<Tweet> tweets){
+
+    // Pass in the context and list of tweets
+    public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
     }
 
-    //For each row, inflate the layout
+    // For each row, inflate the layout
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,7 +39,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-    //Bind values based on the position
+    // Bind values based on the position
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Get the data and bind the data in viewholder
@@ -54,7 +52,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
-    //the purpose of this method is to get appropriate time stamps
+    // The purpose of this method is to get appropriate time stamps
     public String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
@@ -68,24 +66,23 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return relativeDate;
     }
 
     // Clean all elements of the recycler
-    public void clear(){
+    public void clear() {
         tweets.clear();
         notifyDataSetChanged();
     }
 
     // Add a list of items -- change to type used
-    public void addAll(List<Tweet> tweetList){
+    public void addAll(List<Tweet> tweetList) {
         tweets.addAll(tweetList);
         notifyDataSetChanged();
     }
 
     //Define a Viewholder
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivProfileImage;
         TextView tvBody;
@@ -115,18 +112,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .circleCrop()
                     .into(ivProfileImage);
             // Loading the image url into the image view (if url is empty no pic will show)
-            if(tweet.imgURL != ""){
+            if (tweet.imgURL != "") {
                 ivContent.requestLayout();
                 ivContent.getLayoutParams().height = 450;
                 Glide.with(context)
                         .load(tweet.imgURL)
                         .centerCrop()
-                        //.transform(new RoundedCorners(RADIUS))
-                        //.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .into(ivContent);
             }
-
-            Log.d("TweetsAdapter", tweet.imgURL);
         }
     }
 }

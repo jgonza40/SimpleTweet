@@ -71,13 +71,10 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onLoadMore: " + page);
                 loadMoreData();
             }
-
-
         };
         //Adding scroll listener to the recycler view
         rvTweets.addOnScrollListener(scrollListener);
         populateHomeTimeline();
-
     }
 
     @Override
@@ -89,7 +86,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.compose){
+        if (item.getItemId() == R.id.compose) {
             // Composed icon has been tapped
             // Navigate to the compose activity
             Intent intent = new Intent(this, ComposeActivity.class);
@@ -101,13 +98,13 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            //get data from the intent (tweet)
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            // Get data from the intent (tweet)
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
-            //update the rv with the tweet
-            //modify data source of tweets
+            // Update the rv with the tweet
+            // Modify data source of tweets
             tweets.add(0, tweet);
-            //update the adapter
+            // Update the adapter
             adapter.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
         }
@@ -130,7 +127,6 @@ public class TimelineActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
@@ -138,7 +134,6 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure for loadMoreData", throwable);
             }
         }, tweets.get(tweets.size() - 1).id);
-
     }
 
     private void populateHomeTimeline() {

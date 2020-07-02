@@ -23,12 +23,12 @@ public class TwitterApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // when upgrading versions, kill the original tables by using
-		// fallbackToDestructiveMigration()
+        // When upgrading versions, kill the original tables by using
+        // FallbackToDestructiveMigration()
         myDatabase = Room.databaseBuilder(this, MyDatabase.class,
                 MyDatabase.NAME).fallbackToDestructiveMigration().build();
 
-        // use chrome://inspect to inspect your SQL database
+        // Use chrome://inspect to inspect your SQL database
         Stetho.initializeWithDefaults(this);
     }
 

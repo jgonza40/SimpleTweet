@@ -26,11 +26,11 @@ import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
 
+    public static final int MAX_TWEET_LENGTH = 280;
+    public static final String TAG = "ComposeActivity";
     EditText etCompose;
     Button btnTweet;
     TextView tvCounter;
-    public static final int MAX_TWEET_LENGTH = 280;
-    public static final String TAG = "ComposeActivity";
     TwitterClient client;
     ImageView ivProfile;
     TextView tvName;
@@ -43,17 +43,12 @@ public class ComposeActivity extends AppCompatActivity {
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
         tvCounter = findViewById(R.id.tvCounter);
-        ivProfile = findViewById(R.id.ivProfile);
-        tvName = findViewById(R.id.tvName);
-        tvUserName = findViewById((R.id.tvUserName));
+//        ivProfile = findViewById(R.id.ivProfile);
+//        tvName = findViewById(R.id.tvName);
+//        tvUserName = findViewById((R.id.tvUserName));
         client = TwitterApp.getRestClient(this);
 
-        //FIGURE IT OUT HEREEEEEEEEE
-//        Glide.with(context)
-//                .load(tweet.user.profileImageUrl)
-//                .circleCrop()
-//                .into(ivProfileImage);
-
+        // Necessary in order to provide live character count while composing tweet
         etCompose.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -79,15 +74,14 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String tweetContent = etCompose.getText().toString();
-                if(tweetContent.isEmpty()){
+                if (tweetContent.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "your tweet cannot be empty :/", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(tweetContent.length() > MAX_TWEET_LENGTH){
+                if (tweetContent.length() > MAX_TWEET_LENGTH) {
                     Toast.makeText(ComposeActivity.this, "your tweet is too long :/", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_LONG).show();
                 //Make API call to twitter
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
@@ -97,25 +91,22 @@ public class ComposeActivity extends AppCompatActivity {
                             Tweet tweet = Tweet.fromJSON(json.jsonObject);
                             Log.i(TAG, "Published tweet says: " + tweet.body);
                             Intent intent = new Intent();
-                            // set result code and bundle data for response
+                            // Set result code and bundle data for response
                             intent.putExtra("tweet", Parcels.wrap(tweet));
                             setResult(RESULT_OK, intent);
-                            // closes the activity, pass data to parent
+                            // Closes the activity, pass data to parent
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                         Log.e(TAG, "onFailure to publish Tweet", throwable);
-
                     }
                 });
             }
         });
-
     }
 }
