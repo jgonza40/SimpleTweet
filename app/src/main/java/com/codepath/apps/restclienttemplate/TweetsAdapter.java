@@ -140,6 +140,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .load(tweet.imgURL)
                         .centerCrop()
                         .into(ivContent);
+            } else{
+                ivContent.setVisibility(View.GONE);
             }
         }
     }
