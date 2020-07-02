@@ -18,31 +18,30 @@ public class Tweet {
     public String imgURL;
     public long id;
 
-    // empty constructor needed by the Parceler library
+    // Empty constructor needed for the Parceler library
     public Tweet() {}
 
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
+        // Getting info for all components in a tweet
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
-
-        //String mediaURL = jsonObject.getString("entities");
         JSONObject entities = jsonObject.getJSONObject("entities");
-        //Log.d("Tweet", mediaURL);
+        //If there is media, then the link with media will be store, else empty string
         if(entities.has("media")){
-            tweet.imgURL = entities.getJSONArray("media").getJSONObject(0).getString("media_url_https");
-            //entities.getString("media");
-            Log.d("Tweet", "has media!");
+            tweet.imgURL = entities.getJSONArray("media")
+                    .getJSONObject(0)
+                    .getString("media_url_https");
         } else{
             Log.d("Tweet", "nope!");
             tweet.imgURL = "";
         }
-
         return tweet;
     }
 
+    // Method to add individual tweet to list of tweets
     public static List<Tweet> fromJSONArray(JSONArray jsonArray) throws JSONException {
         List<Tweet> tweets = new ArrayList<>();
         for(int i = 0; i < jsonArray.length(); i++){

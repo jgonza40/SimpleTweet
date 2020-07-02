@@ -11,10 +11,11 @@ public class User {
     public String screenName;
     public String profileImageUrl;
 
-    // empty constructor needed by the Parceler library
+    // Empty constructor needed by the Parceler library
     public User(){}
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
+        // All identifying components of user logged in
         User user = new User();
         user.name = jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
