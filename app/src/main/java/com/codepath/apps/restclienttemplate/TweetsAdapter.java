@@ -25,7 +25,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     Context context;
     List<Tweet> tweets;
     public static final String TAG = "TweetsAdapter";
-    public static final int RADIUS = 10;
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -133,7 +132,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .circleCrop()
                     .into(ivProfileImage);
             // Loading the image url into the image view (if url is empty no pic will show)
-            if (tweet.imgURL != "") {
+            if (!tweet.imgURL.equals("")) {
                 ivContent.requestLayout();
                 ivContent.getLayoutParams().height = 450;
                 ivContent.setVisibility(View.VISIBLE);
@@ -141,8 +140,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .load(tweet.imgURL)
                         .centerCrop()
                         .into(ivContent);
-            } else{
-                ivContent.setVisibility(View.GONE);
             }
         }
     }

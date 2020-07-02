@@ -32,9 +32,9 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     TextView tvCounter;
     TwitterClient client;
-    ImageView ivProfile;
-    TextView tvName;
-    TextView tvUserName;
+//    ImageView ivProfile;
+//    TextView tvName;
+//    TextView tvUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,6 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int tweetLength = etCompose.getText().toString().length();
-                //int charsLeft = 280 - tweetLength;
-                //String charsLeftMessage = Integer.toString(charsLeft) + " characters left";
                 String charsLeftMessage = Integer.toString(tweetLength) + " / 280";
                 tvCounter.setText(charsLeftMessage);
             }
@@ -90,6 +88,7 @@ public class ComposeActivity extends AppCompatActivity {
                         try {
                             Tweet tweet = Tweet.fromJSON(json.jsonObject);
                             Log.i(TAG, "Published tweet says: " + tweet.body);
+                            tweet.imgURL = "";
                             Intent intent = new Intent();
                             // Set result code and bundle data for response
                             intent.putExtra("tweet", Parcels.wrap(tweet));
