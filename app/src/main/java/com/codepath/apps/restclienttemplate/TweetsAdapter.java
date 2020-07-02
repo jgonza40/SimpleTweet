@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.text.ParseException;
@@ -24,6 +26,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
     Context context;
     List<Tweet> tweets;
+    public static final int RADIUS = 10;
     //Pass in the context and list of tweets
     public TweetsAdapter(Context context, List<Tweet> tweets){
         this.context = context;
@@ -112,10 +115,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     .circleCrop()
                     .into(ivProfileImage);
             // Loading the image url into the image view (if url is empty no pic will show)
-            Glide.with(context)
-                    .load(tweet.imgURL)
-                    .centerCrop()
-                    .into(ivContent);
+            if(tweet.imgURL != ""){
+                ivContent.requestLayout();
+                ivContent.getLayoutParams().height = 450;
+                Glide.with(context)
+                        .load(tweet.imgURL)
+                        .centerCrop()
+                        //.transform(new RoundedCorners(RADIUS))
+                        //.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                        .into(ivContent);
+            }
+
             Log.d("TweetsAdapter", tweet.imgURL);
         }
     }
