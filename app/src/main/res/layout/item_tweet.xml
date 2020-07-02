@@ -26,7 +26,7 @@
         android:layout_marginEnd="48dp"
         android:layout_toStartOf="@+id/tvTimeStamp"
         android:layout_toEndOf="@+id/tvName"
-        android:text="jgonza40" />
+        android:text="@jgonza40" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -37,6 +37,7 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="this is my first tweet!!"
+        android:textColor="#000000"
         android:textSize="12sp" />
 
     <TextView
@@ -50,6 +51,7 @@
         android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="name"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <TextView
